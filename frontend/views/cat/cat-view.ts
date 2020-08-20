@@ -19,7 +19,10 @@ export class CatView extends LitElement {
     return css`
             .size {
                 height: 400px;
-                width: 580px;
+                width: 535px;
+            }
+            .center {
+                align-items: center;
             }
     `;
   }
@@ -42,8 +45,8 @@ export class CatView extends LitElement {
     }
   render() {
     return html`
-    <vaadin-horizontal-layout>
-      <vaadin-vertical-layout>
+      <vaadin-vertical-layout class="center">
+      <div>
       <video
           class="size"
           autoPlay
@@ -52,9 +55,8 @@ export class CatView extends LitElement {
         />
       <canvas id="canvas" class="size">
       </canvas>
-      </vaadin-vertical-layout>
-      <vaadin-vertical-layout>
-        <vaadin-horizontal-layout>
+      </div>
+        <vaadin-horizontal-layout theme="spacing">
             <vaadin-button ?disabled=${!this.catFound} @click="${this.takePicture}">Take a picture of the cat</vaadin-button>
             <vaadin-button ?disabled=${!this.personFound} @click="${this.takePicture}">Take a picture of the person</vaadin-button>
             <vaadin-button ?disabled=${!this.dogFound} @click="${this.takePicture}">Take a picture of the dog</vaadin-button>
@@ -63,7 +65,6 @@ export class CatView extends LitElement {
             <img id="photo" class="size">
           </div>
       </vaadin-vertical-layout>
-    </vaadin-horizontal-layout>
     `;
   }
 
@@ -94,8 +95,8 @@ export class CatView extends LitElement {
         var personFound = false;
         // Remove any highlighting we did previous frame.
         for (let n = 0; n < predictions.length; n++) {
-            // If we are over 66% sure we are sure we classified it right, draw it!
-            if (predictions[n].score > 0.66) {
+            // If we are over 75% sure we are sure we classified it right, draw it!
+            if (predictions[n].score > 0.75) {
                 if (predictions[n].class === "cat") {
                     catFound = true;
                 }
@@ -110,46 +111,47 @@ export class CatView extends LitElement {
         }
         if (catFound && !this.catFound) {
             // new cat
-            const snd = new Audio("./sound/cat.mp3"); // buffers automatically when created
+            const snd = new Audio("./sound/cat.mp3");
             snd.play();
             this.catFound = true;
         }
 
         if (!catFound && this.catFound) {
             // cat out
-            const snd = new Audio("./sound/out.mp3"); // buffers automatically when created
+            const snd = new Audio("./sound/out.mp3");
             snd.play();
             this.catFound = false;
         }
 
         if (dogFound && !this.dogFound) {
             // new cat
-            const snd = new Audio("./sound/dog.mp3"); // buffers automatically when created
+            const snd = new Audio("./sound/dog.mp3");
             snd.play();
             this.dogFound = true;
         }
 
         if (!dogFound && this.dogFound) {
             // cat out
-            const snd = new Audio("./sound/out.mp3"); // buffers automatically when created
+            const snd = new Audio("./sound/out.mp3");
             snd.play();
             this.dogFound = false;
         }
         if (personFound && !this.personFound) {
             // new person
-            const snd = new Audio("./sound/in.mp3"); // buffers automatically when created
+            const snd = new Audio("./sound/in.mp3");
             snd.play();
             this.personFound = true;
         }
 
         if (!personFound && this.personFound) {
             // cat out
-            const snd = new Audio("./sound/out.mp3"); // buffers automatically when created
+            const snd = new Audio("./sound/out.mp3");
             snd.play();
             this.personFound = false;
         }
+        window.setTimeout(() => this.predictWebcam(loadedModel), 1000);
         // Call this function again to keep predicting when the browser is ready.
-        window.requestAnimationFrame(() => this.predictWebcam(loadedModel) );
+        // window.requestAnimationFrame(() => this.predictWebcam(loadedModel) );
     }
 
     private takePicture() {

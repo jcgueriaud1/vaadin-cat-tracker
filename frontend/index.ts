@@ -16,13 +16,8 @@ const routes = [
 	children: [
 		{
 			path: '',
-			component: 'hello-world-view', 
-			action: async () => { await import ('./views/helloworld/hello-world-view'); }
-		},
-		{
-			path: 'hello',
-			component: 'hello-world-view', 
-			action: async () => { await import ('./views/helloworld/hello-world-view'); }
+			component: 'cat-view',
+			action: async () => { await import ('./views/cat/cat-view'); }
 		},
 		{
 			path: 'cat',
