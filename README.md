@@ -8,3 +8,14 @@ Sounds from [Zapsplat](https://www.Zapsplat.com)
 ## Online Demo
 
 [Online Demo](https://jeanchristophe.app.fi/cat-tracker/) 
+
+
+## How to use the smartest silly app
+
+To use the cat tracker, you need a computer with a camera or a smartphone (because Vaadin is so cool that it can run on a tablet, smartphone or computer :)).
+
+Now you need a cat and if the camera detects a cat then the application will say Hello (in a cat language).
+
+The application is also working with a dog and will say Hello to your dog (it has been translated to a dog language :) ).
+
+Disclaimer: No animals were harmed during the making of the application.
